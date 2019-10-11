@@ -1,4 +1,6 @@
 {% extends 'index.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -8,16 +10,70 @@
 			<a href="{{ article.get_absolute_url }}"><h2>{{ article.title }}</h2></a>
 			<img height="250" width="400" src="{{ article.image.url }}" class="img-responsive">
 			<p>{{ article.content }}</p>
-			<h3>Comments <span>({{ article_comments.count }})</span></h3>
-			{% for comment in article_comments %}
-			<div class="comment-item">
-				<span>{{ comment.author }}</span>
-				<p>{{ comment.comment }}</p>
-				<span>{{ comment.timestamp }}</span>
+			<h3>Comments (<span id="comments-count">{{ article_comments.count }}</span>)</h3>
+			<form method="POST" action="">
+				{% csrf_token %}
+				{{ form|crispy }}
+				<input type="button" id="add-new-post" value="Add comment" article-id="{{ article.id }}">
+			</form>
+			<div class="comments">
+				{% for comment in article_comments %}
+				<div class="comment-item">
+					<span>{{ comment.author }}</span>
+					<p>{{ comment.comment }}</p>
+					<span>{{ comment.timestamp }}</span>
+				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
 		</div>
 	</div>
 </div>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		function getCrsfCookie(name){
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== ''){
+				var cookies = document.cookie.split(';')
+				for (var index = 0; index < cookies.length; index++){
+					var cookie = jQuery.trim(cookies[index]);
+					if (cookie.substring(0, name.length + 1) === (name + "=")){
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+
+		var csrftoken = getCrsfCookie('csrftoken');
+		
+		$('#add-new-post').on('click', function(){
+			article_id = $(this).attr('article-id');
+			comment = $('textarea').val();
+			if (comment.length){
+				data = {
+					comment: comment,
+					article_id: article_id,
+					csrfmiddlewaretoken: csrftoken
+				}
+				$.ajax({
+					type: "POST",
+					url: "{% url 'create_comment_view' %}",
+					data: data,
+					success: function(data){
+						counter = parseInt($('#comments-count').html());
+						$('#comments-count').html(counter + 1);
+						$('textarea').val('');
+						$('.comments').prepend(data);
+					}
+				});
+			}
+		});
+
+	});
+</script>
 
 {% endblock content %}

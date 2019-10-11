@@ -4,6 +4,9 @@ $borderColor: #c9c9c9
 body
 	background-color: $backColor
 
+textarea
+	resize: none
+
 .article-item
 	margin-top: 20px
 	background-color: white
@@ -21,13 +24,19 @@ body
 		color: #4287f5
 		&:hover
 			cursor: pointer
+	& input[type="button"]
+		margin-bottom: 20px
+	& form
+		border-bottom: 1px solid $borderColor
 	& h3
 		border-bottom: 1px solid $borderColor
 		padding-bottom: 10px
 	& .comment-item
+		margin-top: 10px
 		margin-bottom: 10px
 		background-color: $backColor
 		border-radius: 5px
 		padding: 10px
 		& p
 			margin-top: 10px
+			font-style: italic
