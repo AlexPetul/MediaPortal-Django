@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mediaportal_app.models import Category, Article
+from mediaportal_app.models import Category, Article, Comments
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -11,3 +11,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Comments)

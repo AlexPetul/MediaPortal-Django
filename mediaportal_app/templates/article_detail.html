@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 article-item">
+			<a href="{{ article.get_absolute_url }}"><h2>{{ article.title }}</h2></a>
+			<img height="250" width="400" src="{{ article.image.url }}" class="img-responsive">
+			<p>{{ article.content }}</p>
+			<h3>Comments <span>({{ article_comments.count }})</span></h3>
+			{% for comment in article_comments %}
+			<div class="comment-item">
+				<span>{{ comment.author }}</span>
+				<p>{{ comment.comment }}</p>
+				<span>{{ comment.timestamp }}</span>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

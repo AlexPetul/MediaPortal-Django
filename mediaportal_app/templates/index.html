@@ -18,6 +18,7 @@
 
 	<!-- Custom CSS -->
 	<link href="{% static 'css/4-col-portfolio.css' %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,7 +55,7 @@
 						aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							{% for category in categories %}
-							<li><a href="#">{{ category.name }}</a></li>
+							<li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
 							{% endfor %}
 						</ul>
 					</li>
@@ -65,6 +66,7 @@
 		<!-- /.container -->
 	</nav>
 
+	{% block content %}
 	<!-- Page Content -->
 	<div class="container">
 
@@ -184,6 +186,7 @@
 			</div>
 		</div>
 		<!-- /.row -->
+		{% endblock content %}
 
 		<hr>
 
