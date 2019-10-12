@@ -9,6 +9,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', CategoryListView.as_view(), name='categories_view'),
     re_path(r'^category/(?P<slug>[-\w]+)/$', CategoryDetailView.as_view(), name='category_detail_view'),
-    re_path(r'^article/(?P<slug>[-\w]+)/$', ArticleDetailView.as_view(), name='article_detail_view'),
+    re_path(r'^article/(?P<category_slug>[-\w]+)/(?P<slug>[-\w]+)/$', ArticleDetailView.as_view(), name='article_detail_view'),
     re_path(r'^add_comment/$', CreateCommentView.as_view(), name='create_comment_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

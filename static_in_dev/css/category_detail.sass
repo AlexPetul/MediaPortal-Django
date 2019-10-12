@@ -7,6 +7,14 @@ body
 textarea
 	resize: none
 
+#main-header
+	& .hot-news-list
+		list-style-type: none
+		& li
+			font-size: 18px
+		& li:not(:first-child)
+			margin-top: 10px
+
 .article-item
 	margin-top: 20px
 	background-color: white
@@ -40,3 +48,16 @@ textarea
 		& p
 			margin-top: 10px
 			font-style: italic
+
+.hot-news-list
+	& .hot-new-item
+		width: 400px
+		height: 300px
+	& li
+		height: 30px
+		& a
+			display: inline-block
+			white-space: nowrap
+			overflow: hidden
+			-o-text-overflow: ellipsis
+			text-overflow: ellipsis

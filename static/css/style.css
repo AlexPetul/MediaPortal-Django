@@ -4,6 +4,13 @@ body {
 textarea {
   resize: none; }
 
+#main-header .hot-news-list {
+  list-style-type: none; }
+  #main-header .hot-news-list li {
+    font-size: 18px; }
+  #main-header .hot-news-list li:not(:first-child) {
+    margin-top: 10px; }
+
 .article-item {
   margin-top: 20px;
   background-color: white; }
@@ -37,5 +44,17 @@ textarea {
     .article-item .comment-item p {
       margin-top: 10px;
       font-style: italic; }
+
+.hot-news-list .hot-new-item {
+  width: 400px;
+  height: 300px; }
+.hot-news-list li {
+  height: 30px; }
+  .hot-news-list li a {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; }
 
 /*# sourceMappingURL=style.css.map */

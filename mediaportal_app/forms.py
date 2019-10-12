@@ -7,7 +7,7 @@ class CommentCreationForm(forms.ModelForm):
 
 	class Meta:
 		model = Article
-		fields = ['content']
+		fields = ('content',)
 
 	def __init__(self, *args, **kwargs):
 		super(CommentCreationForm, self).__init__(*args, **kwargs)

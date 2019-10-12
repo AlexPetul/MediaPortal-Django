@@ -17,7 +17,7 @@ class Category(models.Model):
 
 
 def generate_filename(instance, filename):
-	filaneme = instance.slug + '.jpg'
+	filaname = instance.slug + '.jpg'
 	return "{0}/{1}".format(instance, filename)
 
 
@@ -29,10 +29,11 @@ class Article(models.Model):
 	content = models.TextField()
 	likes = models.PositiveIntegerField(default=0)
 	dislikes = models.PositiveIntegerField(default=0)
-	comments = models.ManyToManyField('Comments')
+	comments = models.ManyToManyField('Comments', blank=True)
+	time_added = models.DateTimeField(auto_now_add=True)
 
 	def get_absolute_url(self):
-		return reverse('article_detail_view', kwargs={'slug': self.slug})
+		return reverse('article_detail_view', kwargs={'category_slug': self.category.slug, 'slug': self.slug})
 
 	def __str__(self):
 		return "{0} ({1})".format(str(self.id), self.category)

@@ -15,6 +15,7 @@
 				{% csrf_token %}
 				{{ form|crispy }}
 				<input type="button" id="add-new-post" value="Add comment" article-id="{{ article.id }}">
+				<button style="display: none;" type="button" id="show-message" data-toggle="modal" data-target="#myModal"></button>
 			</form>
 			<div class="comments">
 				{% for comment in article_comments %}
@@ -25,55 +26,23 @@
 				</div>
 				{% endfor %}
 			</div>
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Your comment successfully added!</h4>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
-<script src="{% static 'js/jquery.js' %}"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-
-		function getCrsfCookie(name){
-			var cookieValue = null;
-			if (document.cookie && document.cookie !== ''){
-				var cookies = document.cookie.split(';')
-				for (var index = 0; index < cookies.length; index++){
-					var cookie = jQuery.trim(cookies[index]);
-					if (cookie.substring(0, name.length + 1) === (name + "=")){
-						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-						break;
-					}
-				}
-			}
-			return cookieValue;
-		}
-
-		var csrftoken = getCrsfCookie('csrftoken');
-		
-		$('#add-new-post').on('click', function(){
-			article_id = $(this).attr('article-id');
-			comment = $('textarea').val();
-			if (comment.length){
-				data = {
-					comment: comment,
-					article_id: article_id,
-					csrfmiddlewaretoken: csrftoken
-				}
-				$.ajax({
-					type: "POST",
-					url: "{% url 'create_comment_view' %}",
-					data: data,
-					success: function(data){
-						counter = parseInt($('#comments-count').html());
-						$('#comments-count').html(counter + 1);
-						$('textarea').val('');
-						$('.comments').prepend(data);
-					}
-				});
-			}
-		});
-
-	});
+	var create_comment_url = "{% url 'create_comment_view' %}";
 </script>
 
 {% endblock content %}

@@ -14,6 +14,7 @@ class CategoryListView(ListView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(CategoryListView, self).get_context_data(*args, **kwargs)
 		context['categories'] = self.model.objects.all()
+		context['hot_articles'] = Article.objects.all().order_by('-time_added')[:6]
 		return context
 
 
