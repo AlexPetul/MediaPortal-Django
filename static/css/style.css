@@ -10,6 +10,13 @@ textarea {
     font-size: 18px; }
   #main-header .hot-news-list li:not(:first-child) {
     margin-top: 10px; }
+#main-header #myCarousel {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 70px; }
+  #main-header #myCarousel:hover {
+    cursor: pointer; }
 
 .article-item {
   margin-top: 20px;
