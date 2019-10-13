@@ -10,13 +10,6 @@ textarea {
     font-size: 18px; }
   #main-header .hot-news-list li:not(:first-child) {
     margin-top: 10px; }
-#main-header #myCarousel {
-  width: 400px;
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 70px; }
-  #main-header #myCarousel:hover {
-    cursor: pointer; }
 
 .article-item {
   margin-top: 20px;
@@ -24,9 +17,16 @@ textarea {
   .article-item img {
     display: block;
     margin: 20px auto 20px auto; }
-  .article-item p:nth-child(3n) {
+  .article-item p.article-content {
     padding: 10px 0 0 5px;
-    border-top: 1px solid #c9c9c9; }
+    border-top: 1px solid #c9c9c9;
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; }
   .article-item a {
     text-decoration: none; }
   .article-item h2 {
@@ -63,5 +63,19 @@ textarea {
     overflow: hidden;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis; }
+
+.category-selector {
+  margin-top: 40px; }
+
+.ellipsis-title {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis; }
+
+.article-search:not(:first-child) {
+  margin-left: 10px; }
 
 /*# sourceMappingURL=style.css.map */

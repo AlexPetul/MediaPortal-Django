@@ -15,6 +15,7 @@ class CategoryListView(ListView):
 		context = super(CategoryListView, self).get_context_data(*args, **kwargs)
 		context['categories'] = self.model.objects.all()
 		context['carousel_articles'] = Article.objects.all().order_by('-time_added')[:3]
+		context['sport_articles'] = Article.objects.filter(category__name='Sport')
 		context['hot_articles'] = Article.objects.all().order_by('-time_added')[:6]
 		return context
 
@@ -57,3 +58,13 @@ class CreateCommentView(View):
 		article.comments.add(comment)
 		article.save()
 		return HttpResponse(new_post_template)
+
+
+class DisplayArticlesByCategory(View):
+	template_name = 'index.html'
+
+	def get(self, request, *args, **kwargs):
+		category = request.GET.get('category')
+		articles = Article.objects.filter(category__name=category)
+		sub_template = render(request, 'category_results.html', {'articles': articles})
+		return HttpResponse(sub_template)

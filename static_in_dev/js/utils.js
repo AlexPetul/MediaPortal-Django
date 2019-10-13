@@ -46,4 +46,21 @@ $(document).ready(function(){
 		$('#hot-image').attr('src', image_to_set);
 	});
 
+	$('.category-selector').on('click', function(){
+		old_str = $(this).attr('href');
+		new_str = old_str.slice(1, old_str.length);
+		data = {
+			category: new_str
+		}
+		$.ajax({
+			type: "GET",
+			url: display_articles_by_category_url,
+			data: data,
+			success: function(data){
+				$('#' + new_str).html('');
+				$('#' + new_str).append(data);
+			}
+		})
+	});
+
 });
