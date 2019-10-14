@@ -68,3 +68,27 @@ class DisplayArticlesByCategory(View):
 		articles = Article.objects.filter(category__name=category)
 		sub_template = render(request, 'category_results.html', {'articles': articles})
 		return HttpResponse(sub_template)
+
+
+class UserReactionView(View):
+	template_name = 'category_detail.html'
+
+	def get(self, request, *args, **kwargs):
+		article_id = request.GET.get('article_id')
+		article = Article.objects.get(id=article_id)
+		query = request.GET.get('query')
+		if query == 'like':
+			if request.user not in article.users_reactions.all():
+				article.likes += 1
+				article.users_reactions.add(request.user)
+				article.save()
+		elif query == 'dislike':
+			if request.user not in article.users_reactions.all():
+				article.dislikes += 1
+				article.users_reactions.add(request.user)
+				article.save()
+		data = {
+			'total_likes': article.likes,
+			'total_dislikes': article.dislikes
+		}
+		return JsonResponse(data)

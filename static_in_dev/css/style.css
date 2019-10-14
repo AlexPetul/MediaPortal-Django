@@ -14,6 +14,8 @@ textarea {
 .article-item {
   margin-top: 20px;
   background-color: white; }
+  .article-item:last-child {
+    margin-bottom: 50px; }
   .article-item img {
     display: block;
     margin: 20px auto 20px auto; }
@@ -51,6 +53,16 @@ textarea {
     .article-item .comment-item p {
       margin-top: 10px;
       font-style: italic; }
+  .article-item .post-footer {
+    border-top: 1px solid #c9c9c9; }
+    .article-item .post-footer i {
+      font-size: 20px;
+      margin: 10px 0px 10px 10px;
+      cursor: pointer; }
+      .article-item .post-footer i span {
+        margin-left: 10px; }
+    .article-item .post-footer i:not(:first-child) {
+      margin-left: 30px; }
 
 .hot-news-list .hot-new-item {
   width: 400px;

@@ -10,9 +10,21 @@
 			<a href="{{ article.get_absolute_url }}"><h2>{{ article.title }}</h2></a>
 			<img height="250" width="400" src="{{ article.image.url }}" class="img-responsive">
 			<p class="article-content">{{ article.content }}</p>
+			<div class="post-footer">
+				<i class="fa fa-thumbs-up like" id="like-{{ article.id }}" data-id="{{ article.id }}" aria-hidden="true">
+					<span id="likes-count-{{ article.id }}">{{ article.likes }}</span>
+				</i>
+				<i class="fa fa-thumbs-down dislike" id="dislike-{{ article.id }}" data-id="{{ article.id }}" aria-hidden="true">
+					<span id="dislikes-count-{{ article.id }}">{{ article.dislikes }}</span>
+				</i>
+			</div>
 		</div>
 		{% endfor %}
 	</div>
 </div>
+
+<script type="text/javascript">
+	var user_reaction_url = "{% url 'user_reaction_view' %}";
+</script>
 
 {% endblock content %}

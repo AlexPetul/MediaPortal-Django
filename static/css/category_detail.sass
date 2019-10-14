@@ -18,6 +18,8 @@ textarea
 .article-item
 	margin-top: 20px
 	background-color: white
+	&:last-child
+		margin-bottom: 50px
 	& img
 		display: block
 		margin: 20px auto 20px auto
@@ -55,6 +57,16 @@ textarea
 		& p
 			margin-top: 10px
 			font-style: italic
+	& .post-footer
+		border-top: 1px solid $borderColor
+		& i
+			font-size: 20px
+			margin: 10px 0px 10px 10px
+			cursor: pointer
+			& span
+				margin-left: 10px
+		& i:not(:first-child)
+			margin-left: 30px
 
 .hot-news-list
 	& .hot-new-item

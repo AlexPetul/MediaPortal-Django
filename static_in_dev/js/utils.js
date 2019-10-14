@@ -63,4 +63,40 @@ $(document).ready(function(){
 		})
 	});
 
+	$('.like').on('click', function(e){
+		e.preventDefault();
+		query = 'like';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function(data){
+				$('#likes-count-' + article_id).html(data.total_likes);
+			}
+		});
+	});
+
+	$('.dislike').on('click', function(e){
+		e.preventDefault();
+		query = 'dislike';
+		article_id = $(this).attr('data-id');
+		data_to_send = {
+			query: query,
+			article_id: article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: user_reaction_url,
+			data: data_to_send,
+			success: function(data){
+				$('#dislikes-count-' + article_id).html(data.total_dislikes);
+			}
+		});
+	});
+
 });

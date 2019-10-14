@@ -31,6 +31,7 @@ class Article(models.Model):
 	dislikes = models.PositiveIntegerField(default=0)
 	comments = models.ManyToManyField('Comments', blank=True)
 	time_added = models.DateTimeField(auto_now_add=True)
+	users_reactions = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)
 
 	def get_absolute_url(self):
 		return reverse('article_detail_view', kwargs={'category_slug': self.category.slug, 'slug': self.slug})
