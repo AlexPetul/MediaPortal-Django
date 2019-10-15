@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '5g(h#0ld8z1n4bd*1iy%w_v^cr!eu8soc*jat%xld2t4(=-fqn'
+SECRET_KEY = 'YOUR_SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -116,6 +116,10 @@ USE_L10N = True
 USE_TZ = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+FIXTURE_DIRS = (
+   'mediaportal_app/fixtures',
+)
 
 
 # Static files (CSS, JavaScript, Images)

@@ -17,6 +17,7 @@
 				<i class="fa fa-thumbs-down dislike" id="dislike-{{ article.id }}" data-id="{{ article.id }}" aria-hidden="true">
 					<span id="dislikes-count-{{ article.id }}">{{ article.dislikes }}</span>
 				</i>
+				<span class="add-to-fav" article-id="{{ article.id }}"><a href="#">Add to favourite</a></span>
 			</div>
 			<h3>Comments (<span id="comments-count">{{ article_comments.count }}</span>)</h3>
 			<form method="POST" action="">
@@ -52,6 +53,7 @@
 
 <script type="text/javascript">
 	var create_comment_url = "{% url 'create_comment_view' %}";
+	var add_article_to_favourites_url = "{% url 'add_article_to_favourites_view' %}";
 </script>
 
 {% endblock content %}

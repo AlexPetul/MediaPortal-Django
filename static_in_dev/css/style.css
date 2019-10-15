@@ -63,6 +63,10 @@ textarea {
         margin-left: 10px; }
     .article-item .post-footer i:not(:first-child) {
       margin-left: 30px; }
+    .article-item .post-footer .add-to-fav {
+      float: right;
+      margin-top: 10px;
+      font-size: 17px; }
 
 .hot-news-list .hot-new-item {
   width: 400px;
@@ -97,5 +101,21 @@ textarea {
   -webkit-box-shadow: 0px 2px 23px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 2px 23px 0px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 23px 0px rgba(0, 0, 0, 0.3); }
+
+#profile-wrapper h1, #profile-wrapper h2 {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #c9c9c9; }
+#profile-wrapper .personal-info {
+  font-size: 19px; }
+  #profile-wrapper .personal-info span {
+    float: right; }
+#profile-wrapper .fav-articles li {
+  background-color: inherit;
+  font-size: 18px;
+  border: none; }
+
+.search-block h1 {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #c9c9c9; }
 
 /*# sourceMappingURL=style.css.map */

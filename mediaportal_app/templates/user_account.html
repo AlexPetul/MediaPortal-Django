@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row" id="profile-wrapper">
+		<h1 align="center">{{ user.user.username }}'s profile</h1>
+		<div class="col-md-4">
+			<h2>Personal information</h2>
+			<p class="personal-info">
+				First name: <span>{{ user.first_name }}</span><br>
+				Last name: <span>{{ user.last_name }}</span><br>
+				Email: <span>{{ user.email }}</span><br>
+				Username: <span>{{ user.user.username }}</span>
+			</p>
+		</div>
+		<div class="col-md-8">
+			<h2 align="right">Favourite articles</h2>
+			<ul class="list-group fav-articles">
+				{% for article in user.favourite_articles.all %}
+				<li class="list-group-item"><a href="{% url 'article_detail_view' category_slug=article.category.slug slug=article.slug %}">{{ article.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock content %}

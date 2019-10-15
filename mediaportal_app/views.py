@@ -4,6 +4,7 @@ from django.views.generic.list import ListView, View
 from django.views.generic.detail import DetailView
 from mediaportal_app.models import Category, Article, Comments, UserAccount
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from mediaportal_app.forms import CommentCreationForm, RegistrationForm, LoginForm
 from django.http import JsonResponse
@@ -152,3 +153,43 @@ class LoginUserView(View):
 		}
 		return render(request, self.template_name, context)
 
+
+class UserAccountView(View):
+	template_name = 'user_account.html'
+
+	def get(self, request, *args, **kwargs):
+		user = self.kwargs.get('user')
+		current_user = UserAccount.objects.get(user=User.objects.get(username=user))
+		context = {
+			'categories': Category.objects.all(),
+			'user': current_user
+		}
+		return render(request, self.template_name, context)
+
+
+class AddArticlesToFavoutitesView(View):
+	template_name = 'article_detail.html'
+
+	def get(self, request, *args, **kwargs):
+		user = UserAccount.objects.get(user=request.user)
+		article_id = request.GET.get('article_id')
+		article = Article.objects.get(id=article_id)
+		if not article in user.favourite_articles.all():
+			user.favourite_articles.add(article)
+			user.save()
+		return JsonResponse({})
+
+
+class SearchView(View):
+	template_name = 'search.html'
+
+	def get(self, request, *args, **kwargs):
+		query = request.GET.get('q')
+		founded_articles = Article.objects.filter(
+			Q(title__icontains=query)|
+			Q(content__icontains=query))
+		context = {
+			'categories': Category.objects.all(),
+			'founded_articles': founded_articles
+		}		
+		return render(request, self.template_name, context)

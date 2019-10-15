@@ -99,4 +99,20 @@ $(document).ready(function(){
 		});
 	});
 
+	$('.add-to-fav').on('click', function(e) {
+		e.preventDefault();
+		article_id = $(this).attr('article-id');
+		data = {
+			'article_id': article_id
+		}
+		$.ajax({
+			type: "GET",
+			url: add_article_to_favourites_url,
+			data: data,
+			success: function(data){
+				
+			}
+		});
+	});
+
 });

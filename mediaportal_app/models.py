@@ -59,5 +59,8 @@ class UserAccount(models.Model):
 	email = models.EmailField()
 	favourite_articles = models.ManyToManyField(Article, blank=True)
 
+	def get_absolute_url(self):
+		return reverse('account_view', kwargs={'user': self.user.username})
+
 	def __str__(self):
 		return self.user.username
