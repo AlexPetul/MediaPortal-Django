@@ -3,7 +3,7 @@ from django.urls import path, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from mediaportal_app.views import (CategoryListView, CategoryDetailView, ArticleDetailView, CreateCommentView, 
-	DisplayArticlesByCategory, UserReactionView)
+	DisplayArticlesByCategory, UserReactionView, RegisterUserView)
 
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     re_path(r'^add_comment/$', CreateCommentView.as_view(), name='create_comment_view'),
     re_path(r'^send_like_dislike/$', UserReactionView.as_view(), name='user_reaction_view'),
     re_path(r'^display_articles_by_category/$', DisplayArticlesByCategory.as_view(), name='display_articles_by_category_view'),
+    re_path(r'^sign_up/$', RegisterUserView.as_view(), name='registration_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

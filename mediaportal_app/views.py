@@ -1,9 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.list import ListView, View
 from django.views.generic.detail import DetailView
-from mediaportal_app.models import Category, Article, Comments
-from mediaportal_app.forms import CommentCreationForm
+from mediaportal_app.models import Category, Article, Comments, UserAccount
+from django.contrib.auth.models import User
+from mediaportal_app.forms import CommentCreationForm, RegistrationForm
 from django.http import JsonResponse
 
 
@@ -92,3 +93,35 @@ class UserReactionView(View):
 			'total_dislikes': article.dislikes
 		}
 		return JsonResponse(data)
+
+
+class RegisterUserView(View):
+	template_name = 'registration.html'
+
+	def get(self, request, *args, **kwargs):
+		form = RegistrationForm()
+		context = {
+			'form': form
+		}
+		return render(request, self.template_name, context)
+
+	def post(self, request, *args, **kwargs):
+		form = RegistrationForm(request.POST or None)
+		if form.is_valid():
+			new_user = form.save(commit=False)
+			password = form.cleaned_data.get('password')
+			new_user.set_password(password)
+			password_check = form.cleaned_data.get('password_check')
+			email = form.cleaned_data.get('email')
+			first_name = form.cleaned_data.get('first_name')
+			last_name = form.cleaned_data.get('last_name')
+			new_user.save()
+			UserAccount.objects.create(user=User.objects.get(username=new_user.username),
+										first_name=new_user.first_name,
+										last_name=new_user.last_name,
+										email=new_user.email)
+			return HttpResponseRedirect(reverse('categories_view'))
+		context = {
+			'form': form
+		}
+		return render(request, self.template_name, context)
