@@ -4,7 +4,8 @@ from django.views.generic.list import ListView, View
 from django.views.generic.detail import DetailView
 from mediaportal_app.models import Category, Article, Comments, UserAccount
 from django.contrib.auth.models import User
-from mediaportal_app.forms import CommentCreationForm, RegistrationForm
+from django.contrib.auth import authenticate, login, logout
+from mediaportal_app.forms import CommentCreationForm, RegistrationForm, LoginForm
 from django.http import JsonResponse
 
 
@@ -125,3 +126,29 @@ class RegisterUserView(View):
 			'form': form
 		}
 		return render(request, self.template_name, context)
+
+
+class LoginUserView(View):
+	template_name = 'login.html'
+
+	def get(self, request, *args, **kwargs):
+		form = LoginForm()
+		context = {
+			'form': form
+		}
+		return render(request, self.template_name, context)
+
+	def post(self, request, *args, **kwargs):
+		form = LoginForm(request.POST or None)
+		if form.is_valid():
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(username=username, password=password)
+			if user:
+				login(request, user)
+			return HttpResponseRedirect(reverse('categories_view'))
+		context = {
+			'form': form
+		}
+		return render(request, self.template_name, context)
+

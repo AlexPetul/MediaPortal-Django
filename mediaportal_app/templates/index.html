@@ -51,16 +51,23 @@
 							{% endfor %}
 						</ul>
 					</li>
+					{% if not request.user.is_authenticated %}
 					<li>
 						<a href="{% url 'registration_view' %}">Sign up</a>
 					</li>
 					<li>
-						<a href="#">Logout</a>
+						<a href="{% url 'login_view' %}">Sign in</a>
 					</li>
+					{% endif %}
 				</ul>
+				{% if request.user.is_authenticated %}
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">Profile</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{% url 'logout_view' %}">Logout</a></li>
+				</ul>
+				{% endif %}
 			</div>
 		</div>
 	</nav>

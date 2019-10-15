@@ -14,6 +14,23 @@ class CommentCreationForm(forms.ModelForm):
 		super(CommentCreationForm, self).__init__(*args, **kwargs)
 
 
+class LoginForm(forms.Form):
+	username = forms.CharField()
+	password = forms.CharField(widget=forms.PasswordInput)
+
+	def __init__(self, *args, **kwargs):
+		super(LoginForm, self).__init__(*args, **kwargs)
+
+	def clean(self):
+		username = self.cleaned_data.get('username')
+		password = self.cleaned_data.get('password')
+		if not User.objects.filter(username=username).exists():
+			raise forms.ValidationError("User with this username doesnt exist.")
+		user = User.objects.get(username=username)
+		if not user.check_password(password):
+			raise forms.ValidationError("Ivalid password.")
+
+
 class RegistrationForm(forms.ModelForm):
 	username = forms.CharField()
 	password = forms.CharField(widget=forms.PasswordInput)
