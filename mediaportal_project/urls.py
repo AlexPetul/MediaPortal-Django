@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, PasswordChangeView
 from django.urls import path, re_path, reverse_lazy
 from django.conf.urls.static import static
 from django.conf import settings
@@ -21,5 +21,6 @@ urlpatterns = [
     re_path(r'^sign_up/$', RegisterUserView.as_view(), name='registration_view'),
     re_path(r'^sign_in/$', LoginUserView.as_view(), name='login_view'),
     re_path(r'^logout/$', LogoutView.as_view(next_page=reverse_lazy('categories_view')), name='logout_view'),
+    re_path(r'^change_password/$', PasswordChangeView.as_view(success_url=reverse_lazy('categories_view')), name='change_password_view'),
     re_path(r'^user/(?P<user>[-\w]+)/$', UserAccountView.as_view(), name='account_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

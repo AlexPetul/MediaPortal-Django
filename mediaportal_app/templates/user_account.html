@@ -10,7 +10,8 @@
 				First name: <span>{{ user.first_name }}</span><br>
 				Last name: <span>{{ user.last_name }}</span><br>
 				Email: <span>{{ user.email }}</span><br>
-				Username: <span>{{ user.user.username }}</span>
+				Username: <span>{{ user.user.username }}</span><br>
+				<span><a href="{% url 'change_password_view' %}">Change password</a></span>
 			</p>
 		</div>
 		<div class="col-md-8">

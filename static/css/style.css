@@ -92,7 +92,7 @@ textarea {
   text-overflow: ellipsis; }
 
 .article-search:not(:first-child) {
-  margin-left: 10px; }
+  border-left: 5px solid #e8e8e8; }
 
 #reg-form,
 #login-form {
